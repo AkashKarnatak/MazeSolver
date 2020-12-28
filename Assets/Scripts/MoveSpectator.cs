@@ -5,8 +5,8 @@ using UnityEngine;
 public class MoveSpectator : MonoBehaviour
 {
     [SerializeField] private Camera spectatorCamera = default;
-    [SerializeField] private float mouseSensitivity = default;
-    [SerializeField] private float movementSensitivity = default;
+    public float mouseSensitivity = 50f;
+    public float movementSpeed = 2f;
     private float xRotation = default;
     private float yRotation = default;
     // Start is called before the first frame update
@@ -15,7 +15,7 @@ public class MoveSpectator : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         mouseSensitivity = 50f;
-        movementSensitivity = 2f;
+        movementSpeed = 2f;
         xRotation = 0f;
         yRotation = 0f;
     }
@@ -27,16 +27,16 @@ public class MoveSpectator : MonoBehaviour
         if(spectatorCamera.enabled) {
             // Translate spectator
             if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.UpArrow)) {
-                transform.Translate(transform.forward * movementSensitivity * Time.deltaTime, Space.World);
+                transform.Translate(transform.forward * movementSpeed * Time.deltaTime, Space.World);
             }
             if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.LeftArrow)) {
-                transform.Translate(-transform.right * movementSensitivity * Time.deltaTime, Space.World);
+                transform.Translate(-transform.right * movementSpeed * Time.deltaTime, Space.World);
             }
             if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.RightArrow)) {
-                transform.Translate(transform.right * movementSensitivity * Time.deltaTime, Space.World);
+                transform.Translate(transform.right * movementSpeed * Time.deltaTime, Space.World);
             }
             if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.DownArrow)) {
-                transform.Translate(-transform.forward * movementSensitivity * Time.deltaTime, Space.World);
+                transform.Translate(-transform.forward * movementSpeed * Time.deltaTime, Space.World);
             }    
 
             // Look Around

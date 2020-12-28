@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,6 +35,7 @@ public class WallEMovement : MonoBehaviour
     [SerializeField] private GameObject trackerGameObject = default;
 
     // Begin Debug statements -----------------------
+    // To enable interruptGame from Editor, uncomment the lines from 340
     [SerializeField] private bool INTERUPTGAME = true;
     // End Debug statements -----------------------
 
@@ -335,13 +336,13 @@ public class WallEMovement : MonoBehaviour
 
     void Update() {        
 
-        // For debuggin purpose
+        // For debugging purpose
         // if(Input.GetKeyDown(KeyCode.Space)) {
         //     interruptGame = !interruptGame;
         // }
 
         // switch cameras
-        if(Input.GetKeyDown(KeyCode.C)) {
+        if(Input.GetKeyDown(KeyCode.C) && Time.timeScale != 0f) {
             wallECamera.enabled = !wallECamera.enabled;
             spectatorCamera.enabled = !spectatorCamera.enabled;
         }
@@ -383,8 +384,12 @@ public class WallEMovement : MonoBehaviour
             animator.SetBool(isMovingForwardHash, false);
             animator.SetBool(isRotatingLeftHash, false);
             animator.SetBool(isRotatingRightHash, false);
-            // Disable WallE movement script
-            GetComponent<WallEMovement>().enabled = false;
+            // Disable WallE movement 
+            INTERUPTGAME = true;
+            interruptGame = INTERUPTGAME;
+        }
+        if(other.gameObject.tag == "Exit") {
+            Debug.Log("Exit");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
